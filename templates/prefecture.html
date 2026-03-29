@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}{{ prefecture.name }}の郵便番号一覧 | 郵便番号検索{% endblock %}
+{% block description %}{{ prefecture.name }}の郵便番号一覧です。{{ cities[:3] | map(attribute='name') | join('、') }}など{{ cities | length }}市区町村の郵便番号を掲載。{% endblock %}
+
+{% block breadcrumb %}
+<li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+  <a itemprop="item" href="/"><span itemprop="name">トップ</span></a>
+  <meta itemprop="position" content="1">
+</li>
+<li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+  <span itemprop="name">{{ prefecture.name }}</span>
+  <meta itemprop="position" content="2">
+</li>
+{% endblock %}
+
+{% block content %}
+<h1>{{ prefecture.name }}の郵便番号一覧</h1>
+<p class="page-summary">{{ prefecture.name }}には<strong>{{ cities | length }}</strong>の市区町村があり、合計<strong>{{ prefecture.zipcode_count | format_number }}</strong>件の郵便番号が登録されています。</p>
+
+<!-- 広告スロット上部 -->
+<div class="ad-slot" data-position="top-content"></div>
+
+<section class="filter-section">
+  <input
+    type="text"
+    id="city-filter"
+    class="filter-input"
+    placeholder="市区町村名で絞り込み（例: 新宿）"
+    autocomplete="off"
+  >
+</section>
+
+<section class="city-table-section">
+  <table class="data-table" id="city-table">
+    <thead>
+      <tr>
+        <th>市区町村名</th>
+        <th class="col-kana">読み</th>
+        <th class="col-count">件数</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for city in cities %}
+      <tr data-name="{{ city.name }}" data-kana="{{ city.kana }}">
+        <td>
+          <a href="/{{ prefecture.slug }}/{{ city.slug }}/">{{ city.name }}</a>
+        </td>
+        <td class="col-kana">{{ city.kana }}</td>
+        <td class="col-count">{{ city.zipcode_count | format_number }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<!-- 広告スロット中部 -->
+<div class="ad-slot" data-position="mid-content"></div>
+
+{% if prefecture.info %}
+<section class="info-section">
+  <h2>{{ prefecture.name }}の基本情報</h2>
+  <dl class="info-list">
+    <div class="info-item">
+      <dt>県庁所在地</dt>
+      <dd>{{ prefecture.info.capital }}</dd>
+    </div>
+    <div class="info-item">
+      <dt>市区町村数</dt>
+      <dd>{{ cities | length }}</dd>
+    </div>
+    <div class="info-item">
+      <dt>郵便番号数</dt>
+      <dd>{{ prefecture.zipcode_count | format_number }}件</dd>
+    </div>
+  </dl>
+</section>
+{% endif %}
+
+<!-- 広告スロット下部 -->
+<div class="ad-slot" data-position="bottom-content"></div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const filter = document.getElementById('city-filter');
+  const rows = document.querySelectorAll('#city-table tbody tr');
+  if (!filter) return;
+  filter.addEventListener('input', function() {
+    const q = this.value.trim().toLowerCase();
+    rows.forEach(function(row) {
+      const name = (row.dataset.name || '').toLowerCase();
+      const kana = (row.dataset.kana || '').toLowerCase();
+      row.style.display = (!q || name.includes(q) || kana.includes(q)) ? '' : 'none';
+    });
+  });
+});
+</script>
+{% endblock %}

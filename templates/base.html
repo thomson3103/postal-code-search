@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}郵便番号検索{% endblock %}</title>
+  <meta name="description" content="{% block description %}全国の郵便番号を住所・番号から検索できます。都道府県別の一覧や、住所からの逆引き検索に対応。{% endblock %}">
+  <link rel="canonical" href="{{ canonical_url }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=IBM+Plex+Sans:wght@600;700&display=swap">
+  <link rel="stylesheet" href="/css/style.css">
+  {% block head_extra %}{% endblock %}
+  {% block structured_data %}{% endblock %}
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/" class="site-logo">
+        <span class="logo-mark">〒</span>
+        <span class="logo-text">郵便番号検索</span>
+      </a>
+      <div class="header-search">
+        <form action="/search/" method="get" class="search-form" role="search">
+          <input
+            type="search"
+            name="q"
+            id="header-search-input"
+            placeholder="郵便番号 or 住所で検索"
+            autocomplete="off"
+            inputmode="text"
+          >
+          <button type="submit" aria-label="検索">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </header>
+
+  <nav class="breadcrumb" aria-label="パンくずリスト">
+    <div class="breadcrumb-inner">
+      <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+        {% block breadcrumb %}
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a itemprop="item" href="/"><span itemprop="name">トップ</span></a>
+          <meta itemprop="position" content="1">
+        </li>
+        {% endblock %}
+      </ol>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    <div class="container">
+      {% block content %}{% endblock %}
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-prefectures">
+        <h3>都道府県から探す</h3>
+        <div class="footer-pref-grid">
+          {% for region_name, prefs in regions.items() %}
+          <div class="footer-region">
+            <span class="region-label">{{ region_name }}</span>
+            <span class="region-links">
+              {% for pref in prefs %}
+              <a href="/{{ pref.slug }}/">{{ pref.short_name }}</a>{% if not loop.last %} {% endif %}
+              {% endfor %}
+            </span>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-disclaimer">当サイトの郵便番号データは日本郵便株式会社が公開している郵便番号データに基づいて作成しています。最新の情報は<a href="https://www.post.japanpost.jp/zipcode/" rel="nofollow noopener" target="_blank">日本郵便の公式サイト</a>をご確認ください。</p>
+        <p class="footer-copyright">&copy; {{ current_year }} 郵便番号検索</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 広告スロット（忍者AdMax / アドセンス切替用） -->
+  <div id="ad-slot-overlay" class="ad-slot" data-position="overlay" style="display:none;"></div>
+
+  <script src="/js/search.js" defer></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

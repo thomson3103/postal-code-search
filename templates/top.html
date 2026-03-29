@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}郵便番号検索 - 全国の郵便番号をかんたん検索{% endblock %}
+{% block description %}全国{{ total_zipcode_count | format_number }}件の郵便番号を住所・番号から検索できます。都道府県別の一覧や、住所からの逆引き検索に対応。{% endblock %}
+
+{% block breadcrumb %}
+<li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+  <span itemprop="name">トップ</span>
+  <meta itemprop="position" content="1">
+</li>
+{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <h1>郵便番号検索</h1>
+  <p class="hero-sub">全国<strong>{{ total_zipcode_count | format_number }}</strong>件の郵便番号をかんたん検索</p>
+  <div class="hero-search">
+    <form action="/search/" method="get" class="search-form search-form--large" role="search">
+      <input
+        type="search"
+        name="q"
+        id="top-search-input"
+        placeholder="郵便番号（例: 100-0001）や住所（例: 千代田区）で検索"
+        autocomplete="off"
+        autofocus
+      >
+      <button type="submit" aria-label="検索">検索</button>
+    </form>
+    <div id="search-results-preview" class="search-preview" hidden></div>
+  </div>
+</section>
+
+<!-- 広告スロット上部 -->
+<div class="ad-slot" data-position="top-content"></div>
+
+<section class="pref-section">
+  <h2>都道府県から探す</h2>
+  <div class="pref-grid">
+    {% for region_name, prefs in regions.items() %}
+    <div class="pref-region">
+      <h3 class="region-name">{{ region_name }}</h3>
+      <ul class="pref-list">
+        {% for pref in prefs %}
+        <li>
+          <a href="/{{ pref.slug }}/" class="pref-link">
+            <span class="pref-name">{{ pref.name }}</span>
+            <span class="pref-count">{{ pref.zipcode_count | format_number }}件</span>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- 広告スロット中部 -->
+<div class="ad-slot" data-position="mid-content"></div>
+
+<section class="about-section">
+  <h2>郵便番号検索の使い方</h2>
+  <div class="usage-cards">
+    <div class="usage-card">
+      <div class="usage-icon">🔢</div>
+      <h3>番号から検索</h3>
+      <p>7桁の郵便番号を入力すると、対応する住所が表示されます。ハイフンの有無は問いません。</p>
+    </div>
+    <div class="usage-card">
+      <div class="usage-icon">📍</div>
+      <h3>住所から検索</h3>
+      <p>都道府県名、市区町村名、町域名を入力すると、対応する郵便番号が表示されます。</p>
+    </div>
+    <div class="usage-card">
+      <div class="usage-icon">📋</div>
+      <h3>一覧から探す</h3>
+      <p>都道府県を選び、市区町村、町域と絞り込んで郵便番号を探すことができます。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 広告スロット下部 -->
+<div class="ad-slot" data-position="bottom-content"></div>
+{% endblock %}

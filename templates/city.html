@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}{{ prefecture.name }}{{ city.name }}の郵便番号一覧 | 郵便番号検索{% endblock %}
+{% block description %}{{ prefecture.name }}{{ city.name }}の郵便番号一覧です。{{ zipcodes[:2] | map(attribute='neighborhood') | join('（〒' ~ zipcodes[0].formatted ~ '）、') }}など{{ zipcodes | length }}件を掲載。{% endblock %}
+
+{% block breadcrumb %}
+<li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+  <a itemprop="item" href="/"><span itemprop="name">トップ</span></a>
+  <meta itemprop="position" content="1">
+</li>
+<li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+  <a itemprop="item" href="/{{ prefecture.slug }}/"><span itemprop="name">{{ prefecture.name }}</span></a>
+  <meta itemprop="position" content="2">
+</li>
+<li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+  <span itemprop="name">{{ city.name }}</span>
+  <meta itemprop="position" content="3">
+</li>
+{% endblock %}
+
+{% block content %}
+<h1>{{ prefecture.name }}{{ city.name }}の郵便番号一覧</h1>
+<p class="page-summary">{{ prefecture.name }}{{ city.name }}には<strong>{{ zipcodes | length }}</strong>件の郵便番号が登録されています。町域名の五十音順で表示しています。</p>
+
+<!-- 広告スロット上部 -->
+<div class="ad-slot" data-position="top-content"></div>
+
+<section class="filter-section">
+  <input
+    type="text"
+    id="zipcode-filter"
+    class="filter-input"
+    placeholder="町域名 or 郵便番号で絞り込み（例: 大手町 or 100-0004）"
+    autocomplete="off"
+  >
+</section>
+
+<section class="zipcode-table-section">
+  <table class="data-table" id="zipcode-table">
+    <thead>
+      <tr>
+        <th class="col-zip">郵便番号</th>
+        <th>町域名</th>
+        <th class="col-kana">読み</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for zc in zipcodes %}
+      <tr data-zip="{{ zc.code }}" data-name="{{ zc.neighborhood }}" data-kana="{{ zc.neighborhood_kana }}">
+        <td class="col-zip">
+          <a href="/zipcode/{{ zc.code }}/">〒{{ zc.formatted }}</a>
+        </td>
+        <td>
+          <a href="/zipcode/{{ zc.code }}/">{{ zc.neighborhood if zc.neighborhood else '（町域なし）' }}</a>
+          {% if zc.note %}
+          <span class="note-badge" title="{{ zc.note }}">※</span>
+          {% endif %}
+        </td>
+        <td class="col-kana">{{ zc.neighborhood_kana }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<!-- 広告スロット中部 -->
+<div class="ad-slot" data-position="mid-content"></div>
+
+<section class="nearby-section">
+  <h2>{{ prefecture.name }}の他の市区町村</h2>
+  <ul class="nearby-list">
+    {% for c in nearby_cities %}
+    <li><a href="/{{ prefecture.slug }}/{{ c.slug }}/">{{ c.name }}</a>（{{ c.zipcode_count }}件）</li>
+    {% endfor %}
+  </ul>
+</section>
+
+<!-- 広告スロット下部 -->
+<div class="ad-slot" data-position="bottom-content"></div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const filter = document.getElementById('zipcode-filter');
+  const rows = document.querySelectorAll('#zipcode-table tbody tr');
+  if (!filter) return;
+  filter.addEventListener('input', function() {
+    const q = this.value.trim().toLowerCase().replace(/[ー\-−]/g, '');
+    rows.forEach(function(row) {
+      const zip = (row.dataset.zip || '');
+      const name = (row.dataset.name || '').toLowerCase();
+      const kana = (row.dataset.kana || '').toLowerCase();
+      row.style.display = (!q || zip.includes(q) || name.includes(q) || kana.includes(q)) ? '' : 'none';
+    });
+  });
+});
+</script>
+{% endblock %}

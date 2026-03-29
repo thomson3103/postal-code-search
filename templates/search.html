@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+
+{% block title %}「{{ query }}」の検索結果 | 郵便番号検索{% endblock %}
+{% block description %}「{{ query }}」に一致する郵便番号の検索結果です。{% endblock %}
+
+{% block breadcrumb %}
+<li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+  <a itemprop="item" href="/"><span itemprop="name">トップ</span></a>
+  <meta itemprop="position" content="1">
+</li>
+<li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+  <span itemprop="name">検索結果</span>
+  <meta itemprop="position" content="2">
+</li>
+{% endblock %}
+
+{% block content %}
+<h1>郵便番号検索</h1>
+
+<section class="search-page-form">
+  <form action="/search/" method="get" class="search-form search-form--large" role="search">
+    <input
+      type="search"
+      name="q"
+      id="search-page-input"
+      value="{{ query }}"
+      placeholder="郵便番号（例: 100-0001）や住所（例: 千代田区）で検索"
+      autocomplete="off"
+      autofocus
+    >
+    <button type="submit" aria-label="検索">検索</button>
+  </form>
+  <div id="search-page-preview" class="search-preview" hidden></div>
+</section>
+
+<!-- 検索結果はJSで描画 -->
+<section id="search-results-container" class="search-results">
+  <noscript>
+    <p>検索機能を利用するにはJavaScriptを有効にしてください。</p>
+    <p><a href="/">トップページ</a>から都道府県別に探すこともできます。</p>
+  </noscript>
+  <div id="search-loading" hidden>
+    <p class="search-loading-text">検索中...</p>
+  </div>
+  <div id="search-results"></div>
+</section>
+
+<!-- 広告スロット -->
+<div class="ad-slot" data-position="bottom-content"></div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var input = document.getElementById('search-page-input');
+  var resultsDiv = document.getElementById('search-results');
+  var loading = document.getElementById('search-loading');
+  if (!input || !resultsDiv) return;
+
+  // URLパラメータから初期検索
+  var params = new URLSearchParams(window.location.search);
+  var q = params.get('q');
+  if (q) {
+    input.value = q;
+    doSearch(q);
+  }
+
+  // フォーム送信時
+  input.closest('form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var val = input.value.trim();
+    if (val.length >= 2) {
+      history.replaceState(null, '', '/search/?q=' + encodeURIComponent(val));
+      doSearch(val);
+    }
+  });
+
+  function doSearch(query) {
+    loading.hidden = false;
+    resultsDiv.innerHTML = '';
+
+    // search.js の search() 関数を利用（グローバルではないのでfetchで直接）
+    var numOnly = query.replace(/[\-ー−]/g, '');
+    var isZip = /^[\d]{1,7}$/.test(numOnly);
+
+    // 全データからフェッチして検索
+    fetchAllAndSearch(query, isZip, numOnly).then(function(results) {
+      loading.hidden = true;
+      if (!results.length) {
+        resultsDiv.innerHTML = '<p class="no-results">「' + escapeHtml(query) + '」に一致する郵便番号は見つかりませんでした。</p>';
+        return;
+      }
+      var html = '<p class="results-count"><strong>' + results.length + '</strong>件の結果</p>';
+      html += '<table class="data-table"><thead><tr><th class="col-zip">郵便番号</th><th>住所</th></tr></thead><tbody>';
+      results.forEach(function(r) {
+        var zip = r.z;
+        var formatted = zip.slice(0,3) + '-' + zip.slice(3);
+        html += '<tr><td class="col-zip"><a href="/zipcode/' + zip + '/">〒' + formatted + '</a></td>';
+        html += '<td><a href="/zipcode/' + zip + '/">' + escapeHtml(r.a) + '</a></td></tr>';
+      });
+      html += '</tbody></table>';
+      resultsDiv.innerHTML = html;
+    });
+  }
+
+  function fetchAllAndSearch(query, isZip, numOnly) {
+    var codes = Object.keys({
+      '01':1,'02':1,'03':1,'04':1,'05':1,'06':1,'07':1,'08':1,'09':1,'10':1,
+      '11':1,'12':1,'13':1,'14':1,'15':1,'16':1,'17':1,'18':1,'19':1,'20':1,
+      '21':1,'22':1,'23':1,'24':1,'25':1,'26':1,'27':1,'28':1,'29':1,'30':1,
+      '31':1,'32':1,'33':1,'34':1,'35':1,'36':1,'37':1,'38':1,'39':1,'40':1,
+      '41':1,'42':1,'43':1,'44':1,'45':1,'46':1,'47':1
+    });
+    var slugs = {
+      '01':'hokkaido','02':'aomori','03':'iwate','04':'miyagi','05':'akita',
+      '06':'yamagata','07':'fukushima','08':'ibaraki','09':'tochigi','10':'gunma',
+      '11':'saitama','12':'chiba','13':'tokyo','14':'kanagawa','15':'niigata',
+      '16':'toyama','17':'ishikawa','18':'fukui','19':'yamanashi','20':'nagano',
+      '21':'gifu','22':'shizuoka','23':'aichi','24':'mie','25':'shiga',
+      '26':'kyoto','27':'osaka','28':'hyogo','29':'nara','30':'wakayama',
+      '31':'tottori','32':'shimane','33':'okayama','34':'hiroshima','35':'yamaguchi',
+      '36':'tokushima','37':'kagawa','38':'ehime','39':'kochi','40':'fukuoka',
+      '41':'saga','42':'nagasaki','43':'kumamoto','44':'oita','45':'miyazaki',
+      '46':'kagoshima','47':'okinawa'
+    };
+
+    return Promise.all(codes.map(function(c) {
+      return fetch('/data/search/' + c + '-' + slugs[c] + '.json')
+        .then(function(r) { return r.json(); })
+        .catch(function() { return []; });
+    })).then(function(arrays) {
+      var all = [];
+      arrays.forEach(function(a) { all = all.concat(a); });
+      var qLower = query.toLowerCase();
+      var results = [];
+      var max = 100;
+      for (var i = 0; i < all.length && results.length < max; i++) {
+        if (isZip) {
+          if (all[i].z.indexOf(numOnly) === 0) results.push(all[i]);
+        } else {
+          var addr = (all[i].a || '').toLowerCase();
+          var kana = (all[i].k || '').toLowerCase();
+          if (addr.indexOf(qLower) !== -1 || kana.indexOf(qLower) !== -1) results.push(all[i]);
+        }
+      }
+      return results;
+    });
+  }
+
+  function escapeHtml(str) {
+    var d = document.createElement('div');
+    d.textContent = str;
+    return d.innerHTML;
+  }
+});
+</script>
+<style>
+.search-page-form { margin-bottom: 24px; position: relative; }
+.search-results { min-height: 200px; }
+.search-loading-text { text-align: center; color: #999; padding: 32px; }
+.no-results { text-align: center; color: #666; padding: 32px; font-size: .95rem; }
+.results-count { font-size: .88rem; color: #666; margin-bottom: 12px; }
+</style>
+{% endblock %}

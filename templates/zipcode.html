@@ -1,0 +1,182 @@
+{% extends "base.html" %}
+
+{% block title %}〒{{ zipcode.formatted }}の住所は{{ prefecture.name }}{{ city.name }}{{ zipcode.neighborhood }} | 郵便番号検索{% endblock %}
+{% block description %}〒{{ zipcode.formatted }}の住所は{{ prefecture.name }}{{ city.name }}{{ zipcode.neighborhood }}（読み: {{ zipcode.full_kana }}）です。{% endblock %}
+
+{% block structured_data %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "PostalAddress",
+  "postalCode": "{{ zipcode.formatted }}",
+  "addressRegion": "{{ prefecture.name }}",
+  "addressLocality": "{{ city.name }}",
+  "streetAddress": "{{ zipcode.neighborhood }}",
+  "addressCountry": "JP"
+}
+</script>
+{% endblock %}
+
+{% block breadcrumb %}
+<li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+  <a itemprop="item" href="/"><span itemprop="name">トップ</span></a>
+  <meta itemprop="position" content="1">
+</li>
+<li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+  <a itemprop="item" href="/{{ prefecture.slug }}/"><span itemprop="name">{{ prefecture.name }}</span></a>
+  <meta itemprop="position" content="2">
+</li>
+<li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+  <a itemprop="item" href="/{{ prefecture.slug }}/{{ city.slug }}/"><span itemprop="name">{{ city.name }}</span></a>
+  <meta itemprop="position" content="3">
+</li>
+<li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+  <span itemprop="name">〒{{ zipcode.formatted }}</span>
+  <meta itemprop="position" content="4">
+</li>
+{% endblock %}
+
+{% block content %}
+<h1>〒{{ zipcode.formatted }}の住所</h1>
+
+<section class="zipcode-detail">
+  <div class="detail-card">
+    <div class="detail-address">
+      <span class="detail-zip-label">〒</span>
+      <span class="detail-zip-number">{{ zipcode.formatted }}</span>
+      <div class="detail-full-address">{{ prefecture.name }}{{ city.name }}{{ zipcode.neighborhood }}</div>
+    </div>
+
+    <dl class="detail-list">
+      <div class="detail-row">
+        <dt>郵便番号</dt>
+        <dd>〒{{ zipcode.formatted }}</dd>
+      </div>
+      <div class="detail-row">
+        <dt>都道府県</dt>
+        <dd><a href="/{{ prefecture.slug }}/">{{ prefecture.name }}</a></dd>
+      </div>
+      <div class="detail-row">
+        <dt>市区町村</dt>
+        <dd><a href="/{{ prefecture.slug }}/{{ city.slug }}/">{{ city.name }}</a></dd>
+      </div>
+      <div class="detail-row">
+        <dt>町域</dt>
+        <dd>{{ zipcode.neighborhood if zipcode.neighborhood else '—' }}</dd>
+      </div>
+      <div class="detail-row">
+        <dt>読み</dt>
+        <dd>{{ zipcode.full_kana }}</dd>
+      </div>
+      {% if zipcode.old_code %}
+      <div class="detail-row">
+        <dt>旧郵便番号</dt>
+        <dd>〒{{ zipcode.old_code }}</dd>
+      </div>
+      {% endif %}
+      <div class="detail-row">
+        <dt>全国地方公共団体コード</dt>
+        <dd>{{ zipcode.jis_code }}</dd>
+      </div>
+      {% if zipcode.note %}
+      <div class="detail-row">
+        <dt>備考</dt>
+        <dd class="detail-note">{{ zipcode.note }}</dd>
+      </div>
+      {% endif %}
+    </dl>
+  </div>
+
+  <!-- コピーボタン -->
+  <div class="copy-actions">
+    <button class="copy-btn" data-copy="〒{{ zipcode.formatted }}" title="郵便番号をコピー">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      郵便番号をコピー
+    </button>
+    <button class="copy-btn" data-copy="{{ prefecture.name }}{{ city.name }}{{ zipcode.neighborhood }}" title="住所をコピー">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      住所をコピー
+    </button>
+  </div>
+</section>
+
+<!-- 広告スロット上部 -->
+<div class="ad-slot" data-position="top-content"></div>
+
+{% if alternates %}
+<section class="alternates-section">
+  <h2>この郵便番号に含まれる他の町域</h2>
+  <ul class="alternates-list">
+    {% for alt in alternates %}
+    <li>{{ alt.city }}{{ alt.neighborhood }}（{{ alt.neighborhood_kana }}）</li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
+<section class="same-city-section">
+  <h2>{{ city.name }}の他の郵便番号</h2>
+  <div class="same-city-grid">
+    {% for zc in same_city_zipcodes %}
+    <a href="/zipcode/{{ zc.code }}/" class="same-city-link{% if zc.code == zipcode.code %} is-current{% endif %}">
+      <span class="sc-zip">〒{{ zc.formatted }}</span>
+      <span class="sc-name">{{ zc.neighborhood if zc.neighborhood else '—' }}</span>
+    </a>
+    {% endfor %}
+  </div>
+  {% if same_city_has_more %}
+  <p class="see-all"><a href="/{{ prefecture.slug }}/{{ city.slug }}/">{{ city.name }}の全{{ city.zipcode_count }}件を見る →</a></p>
+  {% endif %}
+</section>
+
+<!-- 広告スロット中部 -->
+<div class="ad-slot" data-position="mid-content"></div>
+
+<section class="nav-section">
+  <h2>前後の郵便番号</h2>
+  <div class="nav-prev-next">
+    {% if prev_zipcode %}
+    <a href="/zipcode/{{ prev_zipcode.code }}/" class="nav-link nav-prev">
+      <span class="nav-dir">← 前</span>
+      <span class="nav-zip">〒{{ prev_zipcode.formatted }}</span>
+      <span class="nav-addr">{{ prev_zipcode.full_address_short }}</span>
+    </a>
+    {% else %}
+    <span class="nav-link nav-prev nav-disabled"></span>
+    {% endif %}
+    {% if next_zipcode %}
+    <a href="/zipcode/{{ next_zipcode.code }}/" class="nav-link nav-next">
+      <span class="nav-dir">次 →</span>
+      <span class="nav-zip">〒{{ next_zipcode.formatted }}</span>
+      <span class="nav-addr">{{ next_zipcode.full_address_short }}</span>
+    </a>
+    {% else %}
+    <span class="nav-link nav-next nav-disabled"></span>
+    {% endif %}
+  </div>
+</section>
+
+<!-- 広告スロット下部 -->
+<div class="ad-slot" data-position="bottom-content"></div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.copy-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var text = this.dataset.copy;
+      navigator.clipboard.writeText(text).then(function() {
+        btn.classList.add('copied');
+        var orig = btn.innerHTML;
+        btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> コピーしました';
+        setTimeout(function() {
+          btn.innerHTML = orig;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    });
+  });
+});
+</script>
+{% endblock %}
