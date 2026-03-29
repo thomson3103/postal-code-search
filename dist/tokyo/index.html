@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>東京都の郵便番号一覧 | 郵便番号検索</title>
+  <meta name="description" content="東京都の郵便番号一覧です。青ヶ島村、昭島市、あきる野市など62市区町村の郵便番号を掲載。">
+  <link rel="canonical" href="/tokyo/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=IBM+Plex+Sans:wght@600;700&display=swap">
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/" class="site-logo">
+        <span class="logo-mark">〒</span>
+        <span class="logo-text">郵便番号検索</span>
+      </a>
+      <div class="header-search">
+        <form action="/search/" method="get" class="search-form" role="search">
+          <input
+            type="search"
+            name="q"
+            id="header-search-input"
+            placeholder="郵便番号 or 住所で検索"
+            autocomplete="off"
+            inputmode="text"
+          >
+          <button type="submit" aria-label="検索">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </header>
+
+  <nav class="breadcrumb" aria-label="パンくずリスト">
+    <div class="breadcrumb-inner">
+      <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+        
+<li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+  <a itemprop="item" href="/"><span itemprop="name">トップ</span></a>
+  <meta itemprop="position" content="1">
+</li>
+<li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+  <span itemprop="name">東京都</span>
+  <meta itemprop="position" content="2">
+</li>
+
+      </ol>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    <div class="container">
+      
+<h1>東京都の郵便番号一覧</h1>
+<p class="page-summary">東京都には<strong>62</strong>の市区町村があり、合計<strong>4,164</strong>件の郵便番号が登録されています。</p>
+
+<!-- 広告スロット上部 -->
+<div class="ad-slot" data-position="top-content"></div>
+
+<section class="filter-section">
+  <input
+    type="text"
+    id="city-filter"
+    class="filter-input"
+    placeholder="市区町村名で絞り込み（例: 新宿）"
+    autocomplete="off"
+  >
+</section>
+
+<section class="city-table-section">
+  <table class="data-table" id="city-table">
+    <thead>
+      <tr>
+        <th>市区町村名</th>
+        <th class="col-kana">読み</th>
+        <th class="col-count">件数</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr data-name="青ヶ島村" data-kana="アオガシマムラ">
+        <td>
+          <a href="/tokyo/aokeshima-mura/">青ヶ島村</a>
+        </td>
+        <td class="col-kana">アオガシマムラ</td>
+        <td class="col-count">1</td>
+      </tr>
+      
+      <tr data-name="昭島市" data-kana="アキシマシ">
+        <td>
+          <a href="/tokyo/akirashima-shi/">昭島市</a>
+        </td>
+        <td class="col-kana">アキシマシ</td>
+        <td class="col-count">21</td>
+      </tr>
+      
+      <tr data-name="あきる野市" data-kana="アキルノシ">
+        <td>
+          <a href="/tokyo/akiruno-shi/">あきる野市</a>
+        </td>
+        <td class="col-kana">アキルノシ</td>
+        <td class="col-count">42</td>
+      </tr>
+      
+      <tr data-name="足立区" data-kana="アダチク">
+        <td>
+          <a href="/tokyo/adachi-ku/">足立区</a>
+        </td>
+        <td class="col-kana">アダチク</td>
+        <td class="col-count">91</td>
+      </tr>
+      
+      <tr data-name="荒川区" data-kana="アラカワク">
+        <td>
+          <a href="/tokyo/arakawa-ku/">荒川区</a>
+        </td>
+        <td class="col-kana">アラカワク</td>
+        <td class="col-count">8</td>
+      </tr>
+      
+      <tr data-name="板橋区" data-kana="イタバシク">
+        <td>
+          <a href="/tokyo/itabashi-ku/">板橋区</a>
+        </td>
+        <td class="col-kana">イタバシク</td>
+        <td class="col-count">59</td>
+      </tr>
+      
+      <tr data-name="稲城市" data-kana="イナギシ">
+        <td>
+          <a href="/tokyo/inagi-shi/">稲城市</a>
+        </td>
+        <td class="col-kana">イナギシ</td>
+        <td class="col-count">11</td>
+      </tr>
+      
+      <tr data-name="江戸川区" data-kana="エドガワク">
+        <td>
+          <a href="/tokyo/edogawa-ku/">江戸川区</a>
+        </td>
+        <td class="col-kana">エドガワク</td>
+        <td class="col-count">52</td>
+      </tr>
+      
+      <tr data-name="青梅市" data-kana="オウメシ">
+        <td>
+          <a href="/tokyo/oume-shi/">青梅市</a>
+        </td>
+        <td class="col-kana">オウメシ</td>
+        <td class="col-count">45</td>
+      </tr>
+      
+      <tr data-name="大島町" data-kana="オオシママチ">
+        <td>
+          <a href="/tokyo/ooshima-cho/">大島町</a>
+        </td>
+        <td class="col-kana">オオシママチ</td>
+        <td class="col-count">7</td>
+      </tr>
+      
+      <tr data-name="大田区" data-kana="オオタク">
+        <td>
+          <a href="/tokyo/oota-ku/">大田区</a>
+        </td>
+        <td class="col-kana">オオタク</td>
+        <td class="col-count">63</td>
+      </tr>
+      
+      <tr data-name="小笠原村" data-kana="オガサワラムラ">
+        <td>
+          <a href="/tokyo/ogasawara-mura/">小笠原村</a>
+        </td>
+        <td class="col-kana">オガサワラムラ</td>
+        <td class="col-count">3</td>
+      </tr>
+      
+      <tr data-name="葛飾区" data-kana="カツシカク">
+        <td>
+          <a href="/tokyo/katsushika-ku/">葛飾区</a>
+        </td>
+        <td class="col-kana">カツシカク</td>
+        <td class="col-count">32</td>
+      </tr>
+      
+      <tr data-name="北区" data-kana="キタク">
+        <td>
+          <a href="/tokyo/kita-ku/">北区</a>
+        </td>
+        <td class="col-kana">キタク</td>
+        <td class="col-count">31</td>
+      </tr>
+      
+      <tr data-name="清瀬市" data-kana="キヨセシ">
+        <td>
+          <a href="/tokyo/kiyose-shi/">清瀬市</a>
+        </td>
+        <td class="col-kana">キヨセシ</td>
+        <td class="col-count">12</td>
+      </tr>
+      
+      <tr data-name="国立市" data-kana="クニタチシ">
+        <td>
+          <a href="/tokyo/kokuritsu-shi/">国立市</a>
+        </td>
+        <td class="col-kana">クニタチシ</td>
+        <td class="col-count">11</td>
+      </tr>
+      
+      <tr data-name="神津島村" data-kana="コウヅシマムラ">
+        <td>
+          <a href="/tokyo/kouzushima-mura/">神津島村</a>
+        </td>
+        <td class="col-kana">コウヅシマムラ</td>
+        <td class="col-count">1</td>
+      </tr>
+      
+      <tr data-name="江東区" data-kana="コウトウク">
+        <td>
+          <a href="/tokyo/koutou-ku/">江東区</a>
+        </td>
+        <td class="col-kana">コウトウク</td>
+        <td class="col-count">86</td>
+      </tr>
+      
+      <tr data-name="小金井市" data-kana="コガネイシ">
+        <td>
+          <a href="/tokyo/koganei-shi/">小金井市</a>
+        </td>
+        <td class="col-kana">コガネイシ</td>
+        <td class="col-count">11</td>
+      </tr>
+      
+      <tr data-name="国分寺市" data-kana="コクブンジシ">
+        <td>
+          <a href="/tokyo/kokubunji-shi/">国分寺市</a>
+        </td>
+        <td class="col-kana">コクブンジシ</td>
+        <td class="col-count">20</td>
+      </tr>
+      
+      <tr data-name="小平市" data-kana="コダイラシ">
+        <td>
+          <a href="/tokyo/kodaira-shi/">小平市</a>
+        </td>
+        <td class="col-kana">コダイラシ</td>
+        <td class="col-count">23</td>
+      </tr>
+      
+      <tr data-name="狛江市" data-kana="コマエシ">
+        <td>
+          <a href="/tokyo/komae-shi/">狛江市</a>
+        </td>
+        <td class="col-kana">コマエシ</td>
+        <td class="col-count">12</td>
+      </tr>
+      
+      <tr data-name="品川区" data-kana="シナガワク">
+        <td>
+          <a href="/tokyo/shinagawa-ku/">品川区</a>
+        </td>
+        <td class="col-kana">シナガワク</td>
+        <td class="col-count">60</td>
+      </tr>
+      
+      <tr data-name="渋谷区" data-kana="シブヤク">
+        <td>
+          <a href="/tokyo/shibuya-ku/">渋谷区</a>
+        </td>
+        <td class="col-kana">シブヤク</td>
+        <td class="col-count">155</td>
+      </tr>
+      
+      <tr data-name="新宿区" data-kana="シンジュクク">
+        <td>
+          <a href="/tokyo/shinjuku-ku/">新宿区</a>
+        </td>
+        <td class="col-kana">シンジュクク</td>
+        <td class="col-count">696</td>
+      </tr>
+      
+      <tr data-name="杉並区" data-kana="スギナミク">
+        <td>
+          <a href="/tokyo/suginami-ku/">杉並区</a>
+        </td>
+        <td class="col-kana">スギナミク</td>
+        <td class="col-count">37</td>
+      </tr>
+      
+      <tr data-name="墨田区" data-kana="スミダク">
+        <td>
+          <a href="/tokyo/sumida-ku/">墨田区</a>
+        </td>
+        <td class="col-kana">スミダク</td>
+        <td class="col-count">27</td>
+      </tr>
+      
+      <tr data-name="世田谷区" data-kana="セタガヤク">
+        <td>
+          <a href="/tokyo/setagaya-ku/">世田谷区</a>
+        </td>
+        <td class="col-kana">セタガヤク</td>
+        <td class="col-count">62</td>
+      </tr>
+      
+      <tr data-name="台東区" data-kana="タイトウク">
+        <td>
+          <a href="/tokyo/taitou-ku/">台東区</a>
+        </td>
+        <td class="col-kana">タイトウク</td>
+        <td class="col-count">35</td>
+      </tr>
+      
+      <tr data-name="立川市" data-kana="タチカワシ">
+        <td>
+          <a href="/tokyo/tachikawa-shi/">立川市</a>
+        </td>
+        <td class="col-kana">タチカワシ</td>
+        <td class="col-count">17</td>
+      </tr>
+      
+      <tr data-name="多摩市" data-kana="タマシ">
+        <td>
+          <a href="/tokyo/tama-shi/">多摩市</a>
+        </td>
+        <td class="col-kana">タマシ</td>
+        <td class="col-count">23</td>
+      </tr>
+      
+      <tr data-name="中央区" data-kana="チュウオウク">
+        <td>
+          <a href="/tokyo/chuuou-ku/">中央区</a>
+        </td>
+        <td class="col-kana">チュウオウク</td>
+        <td class="col-count">227</td>
+      </tr>
+      
+      <tr data-name="調布市" data-kana="チョウフシ">
+        <td>
+          <a href="/tokyo/choufu-shi/">調布市</a>
+        </td>
+        <td class="col-kana">チョウフシ</td>
+        <td class="col-count">27</td>
+      </tr>
+      
+      <tr data-name="千代田区" data-kana="チヨダク">
+        <td>
+          <a href="/tokyo/chiyoda-ku/">千代田区</a>
+        </td>
+        <td class="col-kana">チヨダク</td>
+        <td class="col-count">485</td>
+      </tr>
+      
+      <tr data-name="豊島区" data-kana="トシマク">
+        <td>
+          <a href="/tokyo/toyoshima-ku/">豊島区</a>
+        </td>
+        <td class="col-kana">トシマク</td>
+        <td class="col-count">83</td>
+      </tr>
+      
+      <tr data-name="利島村" data-kana="トシマムラ">
+        <td>
+          <a href="/tokyo/rishima-mura/">利島村</a>
+        </td>
+        <td class="col-kana">トシマムラ</td>
+        <td class="col-count">1</td>
+      </tr>
+      
+      <tr data-name="中野区" data-kana="ナカノク">
+        <td>
+          <a href="/tokyo/nakano-ku/">中野区</a>
+        </td>
+        <td class="col-kana">ナカノク</td>
+        <td class="col-count">20</td>
+      </tr>
+      
+      <tr data-name="新島村" data-kana="ニイジマムラ">
+        <td>
+          <a href="/tokyo/niijima-mura/">新島村</a>
+        </td>
+        <td class="col-kana">ニイジマムラ</td>
+        <td class="col-count">4</td>
+      </tr>
+      
+      <tr data-name="西多摩郡奥多摩町" data-kana="ニシタマグンオクタママチ">
+        <td>
+          <a href="/tokyo/nishitama-gun-okutama-cho/">西多摩郡奥多摩町</a>
+        </td>
+        <td class="col-kana">ニシタマグンオクタママチ</td>
+        <td class="col-count">16</td>
+      </tr>
+      
+      <tr data-name="西多摩郡日の出町" data-kana="ニシタマグンヒノデマチ">
+        <td>
+          <a href="/tokyo/nishitama-gun-hinode-cho/">西多摩郡日の出町</a>
+        </td>
+        <td class="col-kana">ニシタマグンヒノデマチ</td>
+        <td class="col-count">3</td>
+      </tr>
+      
+      <tr data-name="西多摩郡檜原村" data-kana="ニシタマグンヒノハラムラ">
+        <td>
+          <a href="/tokyo/nishitama-gun-hibara-mura/">西多摩郡檜原村</a>
+        </td>
+        <td class="col-kana">ニシタマグンヒノハラムラ</td>
+        <td class="col-count">13</td>
+      </tr>
+      
+      <tr data-name="西多摩郡瑞穂町" data-kana="ニシタマグンミズホマチ">
+        <td>
+          <a href="/tokyo/nishitama-gun-mizuho-cho/">西多摩郡瑞穂町</a>
+        </td>
+        <td class="col-kana">ニシタマグンミズホマチ</td>
+        <td class="col-count">17</td>
+      </tr>
+      
+      <tr data-name="西東京市" data-kana="ニシトウキョウシ">
+        <td>
+          <a href="/tokyo/nishitoukyou-shi/">西東京市</a>
+        </td>
+        <td class="col-kana">ニシトウキョウシ</td>
+        <td class="col-count">23</td>
+      </tr>
+      
+      <tr data-name="練馬区" data-kana="ネリマク">
+        <td>
+          <a href="/tokyo/nerima-ku/">練馬区</a>
+        </td>
+        <td class="col-kana">ネリマク</td>
+        <td class="col-count">47</td>
+      </tr>
+      
+      <tr data-name="八王子市" data-kana="ハチオウジシ">
+        <td>
+          <a href="/tokyo/hachiouji-shi/">八王子市</a>
+        </td>
+        <td class="col-kana">ハチオウジシ</td>
+        <td class="col-count">120</td>
+      </tr>
+      
+      <tr data-name="八丈島八丈町" data-kana="ハチジョウジマハチジョウマチ">
+        <td>
+          <a href="/tokyo/hachijoushimahachijou-cho/">八丈島八丈町</a>
+        </td>
+        <td class="col-kana">ハチジョウジマハチジョウマチ</td>
+        <td class="col-count">6</td>
+      </tr>
+      
+      <tr data-name="羽村市" data-kana="ハムラシ">
+        <td>
+          <a href="/tokyo/hane-mura-shi/">羽村市</a>
+        </td>
+        <td class="col-kana">ハムラシ</td>
+        <td class="col-count">15</td>
+      </tr>
+      
+      <tr data-name="東久留米市" data-kana="ヒガシクルメシ">
+        <td>
+          <a href="/tokyo/higashikurume-shi/">東久留米市</a>
+        </td>
+        <td class="col-kana">ヒガシクルメシ</td>
+        <td class="col-count">24</td>
+      </tr>
+      
+      <tr data-name="東村山市" data-kana="ヒガシムラヤマシ">
+        <td>
+          <a href="/tokyo/higashi-mura-yama-shi/">東村山市</a>
+        </td>
+        <td class="col-kana">ヒガシムラヤマシ</td>
+        <td class="col-count">14</td>
+      </tr>
+      
+      <tr data-name="東大和市" data-kana="ヒガシヤマトシ">
+        <td>
+          <a href="/tokyo/higashiyamato-shi/">東大和市</a>
+        </td>
+        <td class="col-kana">ヒガシヤマトシ</td>
+        <td class="col-count">18</td>
+      </tr>
+      
+      <tr data-name="日野市" data-kana="ヒノシ">
+        <td>
+          <a href="/tokyo/hino-shi/">日野市</a>
+        </td>
+        <td class="col-kana">ヒノシ</td>
+        <td class="col-count">31</td>
+      </tr>
+      
+      <tr data-name="府中市" data-kana="フチュウシ">
+        <td>
+          <a href="/tokyo/fuchuu-shi/">府中市</a>
+        </td>
+        <td class="col-kana">フチュウシ</td>
+        <td class="col-count">39</td>
+      </tr>
+      
+      <tr data-name="福生市" data-kana="フッサシ">
+        <td>
+          <a href="/tokyo/fussa-shi/">福生市</a>
+        </td>
+        <td class="col-kana">フッサシ</td>
+        <td class="col-count">14</td>
+      </tr>
+      
+      <tr data-name="文京区" data-kana="ブンキョウク">
+        <td>
+          <a href="/tokyo/bunkyou-ku/">文京区</a>
+        </td>
+        <td class="col-kana">ブンキョウク</td>
+        <td class="col-count">21</td>
+      </tr>
+      
+      <tr data-name="町田市" data-kana="マチダシ">
+        <td>
+          <a href="/tokyo/cho-ta-shi/">町田市</a>
+        </td>
+        <td class="col-kana">マチダシ</td>
+        <td class="col-count">56</td>
+      </tr>
+      
+      <tr data-name="御蔵島村" data-kana="ミクラジマムラ">
+        <td>
+          <a href="/tokyo/mikurashima-mura/">御蔵島村</a>
+        </td>
+        <td class="col-kana">ミクラジマムラ</td>
+        <td class="col-count">1</td>
+      </tr>
+      
+      <tr data-name="三鷹市" data-kana="ミタカシ">
+        <td>
+          <a href="/tokyo/mitaka-shi/">三鷹市</a>
+        </td>
+        <td class="col-kana">ミタカシ</td>
+        <td class="col-count">12</td>
+      </tr>
+      
+      <tr data-name="港区" data-kana="ミナトク">
+        <td>
+          <a href="/tokyo/minato-ku/">港区</a>
+        </td>
+        <td class="col-kana">ミナトク</td>
+        <td class="col-count">1,008</td>
+      </tr>
+      
+      <tr data-name="三宅島三宅村" data-kana="ミヤケジマミヤケムラ">
+        <td>
+          <a href="/tokyo/miyakeshimamiyake-mura/">三宅島三宅村</a>
+        </td>
+        <td class="col-kana">ミヤケジマミヤケムラ</td>
+        <td class="col-count">7</td>
+      </tr>
+      
+      <tr data-name="武蔵野市" data-kana="ムサシノシ">
+        <td>
+          <a href="/tokyo/musashino-shi/">武蔵野市</a>
+        </td>
+        <td class="col-kana">ムサシノシ</td>
+        <td class="col-count">14</td>
+      </tr>
+      
+      <tr data-name="武蔵村山市" data-kana="ムサシムラヤマシ">
+        <td>
+          <a href="/tokyo/musashi-mura-yama-shi/">武蔵村山市</a>
+        </td>
+        <td class="col-kana">ムサシムラヤマシ</td>
+        <td class="col-count">16</td>
+      </tr>
+      
+      <tr data-name="目黒区" data-kana="メグロク">
+        <td>
+          <a href="/tokyo/meguro-ku/">目黒区</a>
+        </td>
+        <td class="col-kana">メグロク</td>
+        <td class="col-count">28</td>
+      </tr>
+      
+    </tbody>
+  </table>
+</section>
+
+<!-- 広告スロット中部 -->
+<div class="ad-slot" data-position="mid-content"></div>
+
+
+<section class="info-section">
+  <h2>東京都の基本情報</h2>
+  <dl class="info-list">
+    <div class="info-item">
+      <dt>県庁所在地</dt>
+      <dd>新宿区</dd>
+    </div>
+    <div class="info-item">
+      <dt>市区町村数</dt>
+      <dd>62</dd>
+    </div>
+    <div class="info-item">
+      <dt>郵便番号数</dt>
+      <dd>4,164件</dd>
+    </div>
+  </dl>
+</section>
+
+
+<!-- 広告スロット下部 -->
+<div class="ad-slot" data-position="bottom-content"></div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-prefectures">
+        <h3>都道府県から探す</h3>
+        <div class="footer-pref-grid">
+          
+          <div class="footer-region">
+            <span class="region-label">北海道・東北</span>
+            <span class="region-links">
+              
+              <a href="/hokkaido/">北海道</a> 
+              
+              <a href="/aomori/">青森</a> 
+              
+              <a href="/iwate/">岩手</a> 
+              
+              <a href="/miyagi/">宮城</a> 
+              
+              <a href="/akita/">秋田</a> 
+              
+              <a href="/yamagata/">山形</a> 
+              
+              <a href="/fukushima/">福島</a>
+              
+            </span>
+          </div>
+          
+          <div class="footer-region">
+            <span class="region-label">関東</span>
+            <span class="region-links">
+              
+              <a href="/ibaraki/">茨城</a> 
+              
+              <a href="/tochigi/">栃木</a> 
+              
+              <a href="/gunma/">群馬</a> 
+              
+              <a href="/saitama/">埼玉</a> 
+              
+              <a href="/chiba/">千葉</a> 
+              
+              <a href="/tokyo/">東京</a> 
+              
+              <a href="/kanagawa/">神奈川</a>
+              
+            </span>
+          </div>
+          
+          <div class="footer-region">
+            <span class="region-label">中部</span>
+            <span class="region-links">
+              
+              <a href="/niigata/">新潟</a> 
+              
+              <a href="/toyama/">富山</a> 
+              
+              <a href="/ishikawa/">石川</a> 
+              
+              <a href="/fukui/">福井</a> 
+              
+              <a href="/yamanashi/">山梨</a> 
+              
+              <a href="/nagano/">長野</a> 
+              
+              <a href="/gifu/">岐阜</a> 
+              
+              <a href="/shizuoka/">静岡</a> 
+              
+              <a href="/aichi/">愛知</a>
+              
+            </span>
+          </div>
+          
+          <div class="footer-region">
+            <span class="region-label">近畿</span>
+            <span class="region-links">
+              
+              <a href="/mie/">三重</a> 
+              
+              <a href="/shiga/">滋賀</a> 
+              
+              <a href="/kyoto/">京都</a> 
+              
+              <a href="/osaka/">大阪</a> 
+              
+              <a href="/hyogo/">兵庫</a> 
+              
+              <a href="/nara/">奈良</a> 
+              
+              <a href="/wakayama/">和歌山</a>
+              
+            </span>
+          </div>
+          
+          <div class="footer-region">
+            <span class="region-label">中国・四国</span>
+            <span class="region-links">
+              
+              <a href="/tottori/">鳥取</a> 
+              
+              <a href="/shimane/">島根</a> 
+              
+              <a href="/okayama/">岡山</a> 
+              
+              <a href="/hiroshima/">広島</a> 
+              
+              <a href="/yamaguchi/">山口</a> 
+              
+              <a href="/tokushima/">徳島</a> 
+              
+              <a href="/kagawa/">香川</a> 
+              
+              <a href="/ehime/">愛媛</a> 
+              
+              <a href="/kochi/">高知</a>
+              
+            </span>
+          </div>
+          
+          <div class="footer-region">
+            <span class="region-label">九州・沖縄</span>
+            <span class="region-links">
+              
+              <a href="/fukuoka/">福岡</a> 
+              
+              <a href="/saga/">佐賀</a> 
+              
+              <a href="/nagasaki/">長崎</a> 
+              
+              <a href="/kumamoto/">熊本</a> 
+              
+              <a href="/oita/">大分</a> 
+              
+              <a href="/miyazaki/">宮崎</a> 
+              
+              <a href="/kagoshima/">鹿児島</a> 
+              
+              <a href="/okinawa/">沖縄</a>
+              
+            </span>
+          </div>
+          
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-disclaimer">当サイトの郵便番号データは日本郵便株式会社が公開している郵便番号データに基づいて作成しています。最新の情報は<a href="https://www.post.japanpost.jp/zipcode/" rel="nofollow noopener" target="_blank">日本郵便の公式サイト</a>をご確認ください。</p>
+        <p class="footer-copyright">&copy; 2026 郵便番号検索</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 広告スロット（忍者AdMax / アドセンス切替用） -->
+  <div id="ad-slot-overlay" class="ad-slot" data-position="overlay" style="display:none;"></div>
+
+  <script src="/js/search.js" defer></script>
+  
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const filter = document.getElementById('city-filter');
+  const rows = document.querySelectorAll('#city-table tbody tr');
+  if (!filter) return;
+  filter.addEventListener('input', function() {
+    const q = this.value.trim().toLowerCase();
+    rows.forEach(function(row) {
+      const name = (row.dataset.name || '').toLowerCase();
+      const kana = (row.dataset.kana || '').toLowerCase();
+      row.style.display = (!q || name.includes(q) || kana.includes(q)) ? '' : 'none';
+    });
+  });
+});
+</script>
+
+</body>
+</html>
