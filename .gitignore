@@ -1,0 +1,15 @@
+# ソースコード（gh-pages ブランチでは不要）
+src/
+templates/
+requirements.txt
+data/raw/
+CLAUDE.md
+HANDOFF.md
+deploy_gh_pages.py
+__pycache__/
+*.pyc
+*.zip
+.venv/
+venv/
+.idea/
+.vscode/
